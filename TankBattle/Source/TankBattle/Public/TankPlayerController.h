@@ -14,11 +14,14 @@ class TANKBATTLE_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
-private:
+public:
 	ATank* GetControlledTank() const;
 
 	void BeginPlay() override;
 	void Tick(float DeltaSeconds) override;
 	
-	
+	void AimTowardsCrosshair(); //Move tank barrel so shot intersects crosshair
+
+private:
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 };
