@@ -62,12 +62,25 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	float TurretYaw = DeltaRotator.Yaw / 2;
-	UE_LOG(LogTemp, Warning, TEXT("Delta rotation 1: %s"),
+	auto AimAtRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAtRotator - BarrelRotator;
+	float TurretRelSpeed = 0;
+	if (DeltaRotator.Yaw >= 180 ||
+		(DeltaRotator.Yaw < 0 && DeltaRotator.Yaw >= -180))
+	{
+		TurretRelSpeed = -FMath::Abs<float>(DeltaRotator.Yaw);
+	}
+	else
+	{
+		TurretRelSpeed = FMath::Abs<float>(DeltaRotator.Yaw);
+	}
+	UE_LOG(LogTemp, Warning, TEXT("\nAR: %s"),
+		*AimAtRotator.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("BR: %s"),
+		*BarrelRotator.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("DR: %s"),
 		*DeltaRotator.ToString());
 	
-	Barrel->Elevate(DeltaRotator.Pitch/2);
-	Turret->TurretRotate(TurretYaw);
+	Barrel->Elevate(DeltaRotator.Pitch);
+	Turret->TurretRotate(TurretRelSpeed);
 }
