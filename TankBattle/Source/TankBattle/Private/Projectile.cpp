@@ -34,5 +34,6 @@ void AProjectile::LaunchProjectile(float Speed)
 	UE_LOG(LogTemp, Warning, TEXT("Firing @ %f cm/s"), Speed);
 	ProjectileMovement->
 		SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
+	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->Activate();
 }

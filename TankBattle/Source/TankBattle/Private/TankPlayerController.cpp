@@ -74,9 +74,14 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDir,
 	FHitResult Hit;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + LookDir * LineTraceRange;
+	const FName TraceTag("MyTraceTatg");
 
+	//GetWorld()->DebugDrawTraceTag = TraceTag;
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.TraceTag = TraceTag;
 	if (GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation,
-		ECollisionChannel::ECC_Visibility))
+		ECollisionChannel::ECC_Visibility, CollisionParams))
 	{
 		HitLocation = Hit.Location;
 		return true;
