@@ -54,7 +54,7 @@ void UTankMovementComponent::IntendRotateCClockwise(float Throw)
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,
 	bool bForceMaxSpeed)
 {
-	//auto AITankName = GetOwner()->GetName();
+	/*auto AITankName = GetOwner()->GetName();*/
 	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 	float FwdMove = FVector::DotProduct(TankForward, AIForwardIntention);
