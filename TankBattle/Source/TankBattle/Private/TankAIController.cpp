@@ -17,7 +17,7 @@ void ATankAIController::Tick(float DeltaTime)
 	{
 		Cast<ATank>(GetPawn())->
 			AimAt(GetWorld()->GetFirstPlayerController()->GetPawn()->
-				GetActorLocation());
+				GetActorLocation()+FVector(0,0,100));
 
 		Cast<ATank>(GetPawn())->FireProjectile();
 	}	
