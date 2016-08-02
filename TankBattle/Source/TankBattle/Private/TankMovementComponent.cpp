@@ -50,3 +50,21 @@ void UTankMovementComponent::IntendRotateCClockwise(float Throw)
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,
+	bool bForceMaxSpeed)
+{
+	//auto AITankName = GetOwner()->GetName();
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+	float FwdMove = FVector::DotProduct(TankForward, AIForwardIntention);
+	float Rotate = sqrt(1 - FwdMove * FwdMove);
+	IntendMoveForwards(FwdMove);
+	IntendMoveBackwards(FwdMove);
+	IntendRotateCClockwise(Rotate);
+	IntendRotateClockwise(Rotate);
+	/*UE_LOG(LogTemp, Warning, TEXT("%s moving @ vel %s"), *AITankName,
+		*AIForwardIntention.ToString());*/
+
+
+}

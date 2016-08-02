@@ -15,6 +15,11 @@ void ATankAIController::Tick(float DeltaTime)
 	if (!GetPawn()) { return; }
 	if (GetWorld()->GetFirstPlayerController()->GetPawn())
 	{
+		//Move towards player
+		MoveToActor(GetWorld()->GetFirstPlayerController()->GetPawn(),
+			AcceptanceRadius);
+
+		// Aim at player
 		Cast<ATank>(GetPawn())->
 			AimAt(GetWorld()->GetFirstPlayerController()->GetPawn()->
 				GetActorLocation()+FVector(0,0,100));
