@@ -24,6 +24,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = Movement)
 		void IntendMoveBackwards(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Movement)
+		void IntendRotateClockwise(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Movement)
+		void IntendRotateCClockwise(float Throw);
 private:
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;

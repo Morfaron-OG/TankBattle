@@ -7,15 +7,15 @@
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackSet,
 	UTankTrack* RightTrackSet)
 {
-	if (!LeftTrackSet || !RightTrackSet) { return; }
 	LeftTrack = LeftTrackSet;
 	RightTrack = RightTrackSet;
 }
 
 void UTankMovementComponent::IntendMoveForwards(float Throw)
 {
+	if (!LeftTrack || !RightTrack) { return; }
 	Throw = FMath::Clamp<float>(Throw, 0, 1);
-	UE_LOG(LogTemp, Warning, TEXT("Intend move fwd: %f"),  Throw);
+	//UE_LOG(LogTemp, Warning, TEXT("Intend move fwd: %f"),  Throw);
 
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
@@ -23,10 +23,30 @@ void UTankMovementComponent::IntendMoveForwards(float Throw)
 
 void UTankMovementComponent::IntendMoveBackwards(float Throw)
 {
+	if (!LeftTrack || !RightTrack) { return; }
 	Throw = FMath::Clamp<float>(Throw, -1, 0);
-	UE_LOG(LogTemp, Warning, TEXT("Intend move Bwd: %f"), Throw);
+	//UE_LOG(LogTemp, Warning, TEXT("Intend move Bwd: %f"), Throw);
 
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
+void UTankMovementComponent::IntendRotateClockwise(float Throw)
+{
+	if (!LeftTrack || !RightTrack) { return; }
+	Throw = FMath::Clamp<float>(Throw, 0, 1);
+	//UE_LOG(LogTemp, Warning, TEXT("Intend clock: %f"), Throw);
+
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+}
+
+void UTankMovementComponent::IntendRotateCClockwise(float Throw)
+{
+	if (!LeftTrack || !RightTrack) { return; }
+	Throw = FMath::Clamp<float>(Throw, -1, 0);
+	//UE_LOG(LogTemp, Warning, TEXT("Intend cclock: %f"), Throw);
+
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+}
