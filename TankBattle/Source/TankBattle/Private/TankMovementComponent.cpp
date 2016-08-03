@@ -63,7 +63,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,
 	IntendMoveBackwards(FwdMove);
 	IntendRotateCClockwise(Rotate);
 	IntendRotateClockwise(Rotate);
-	UE_LOG(LogTemp, Warning, TEXT("r %f"), Rotate);
 	/*UE_LOG(LogTemp, Warning, TEXT("%s moving @ vel %s"), *AITankName,
 		*AIForwardIntention.ToString());*/
 
