@@ -21,8 +21,10 @@ public:
 		void FireProjectile();
 
 protected:
+	UPROPERTY(BlueprintReadWrite, Category = "Aiming")
 		UTankAimingComponent* TankAimingComponent = nullptr;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Movement")
 		UTankMovementComponent* TankMovementComponent = nullptr;
 private:
 	// Sets default values for this pawn's properties
