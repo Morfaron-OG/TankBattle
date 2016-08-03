@@ -5,9 +5,6 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
-class UTankAimingComponent;
-class UTankMovementComponent;
-
 UCLASS()
 class TANKBATTLE_API ATank : public APawn
 {
@@ -21,11 +18,6 @@ public:
 		void FireProjectile();
 
 protected:
-	UPROPERTY(BlueprintReadWrite, Category = "Aiming")
-		UTankAimingComponent* TankAimingComponent = nullptr;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Movement")
-		UTankMovementComponent* TankMovementComponent = nullptr;
 private:
 	// Sets default values for this pawn's properties
 	ATank();
