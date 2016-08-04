@@ -20,5 +20,5 @@ private:
 
 	// How close AI can get to player.
 	UPROPERTY(EditDefaultsOnly)
-		float AcceptanceRadius = 3000;
+		float AcceptanceRadius = 5000;
 };

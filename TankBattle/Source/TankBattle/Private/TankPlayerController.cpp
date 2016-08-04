@@ -2,6 +2,7 @@
 
 #include "TankBattle.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
 void ATankPlayerController::BeginPlay()
@@ -38,7 +39,8 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation = FVector(0); //OUT parameter
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		GetControlledTank()->FindComponentByClass<UTankAimingComponent>()->
+			AimAt(HitLocation);
 	}
 }
 

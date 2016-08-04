@@ -89,3 +89,8 @@ void UTankAimingComponent::FireProjectile()
 		LastFireTime = FPlatformTime::Seconds();
 	}
 }
+
+EFiringStatus UTankAimingComponent::GetFiringStatus() const
+{
+	return TankFiringStatus;
+}

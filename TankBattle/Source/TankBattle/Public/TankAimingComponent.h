@@ -35,6 +35,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 		void FireProjectile();
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+		EFiringStatus GetFiringStatus() const;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming State")
 		EFiringStatus TankFiringStatus = EFiringStatus::Aiming;
