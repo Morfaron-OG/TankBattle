@@ -16,8 +16,8 @@ void UTankAimingComponent::Initialise(UTankTurret* TurretToSet,
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
-	if (!Barrel) { return; }
-	if (!Turret) { return; }
+	if (!ensure(Barrel)) { return; }
+	if (!ensure(Turret)) { return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this,
@@ -77,7 +77,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::FireProjectile()
 {
-	if (Barrel && bIsReloaded)
+	if (!ensure(Barrel)) { return; }
+	if (bIsReloaded)
 	{
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>
 			(

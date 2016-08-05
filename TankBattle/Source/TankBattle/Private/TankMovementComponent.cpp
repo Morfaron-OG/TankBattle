@@ -13,7 +13,7 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackSet,
 
 void UTankMovementComponent::IntendMoveForwards(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	Throw = FMath::Clamp<float>(Throw, 0, 1);
 	//UE_LOG(LogTemp, Warning, TEXT("Intend move fwd: %f"),  Throw);
 
@@ -23,7 +23,7 @@ void UTankMovementComponent::IntendMoveForwards(float Throw)
 
 void UTankMovementComponent::IntendMoveBackwards(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	Throw = FMath::Clamp<float>(Throw, -1, 0);
 	//UE_LOG(LogTemp, Warning, TEXT("Intend move Bwd: %f"), Throw);
 
@@ -33,7 +33,7 @@ void UTankMovementComponent::IntendMoveBackwards(float Throw)
 
 void UTankMovementComponent::IntendRotateClockwise(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	Throw = FMath::Clamp<float>(Throw, 0, 1);
 	//UE_LOG(LogTemp, Warning, TEXT("Intend clock: %f"), Throw);
 
@@ -43,7 +43,7 @@ void UTankMovementComponent::IntendRotateClockwise(float Throw)
 
 void UTankMovementComponent::IntendRotateCClockwise(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	Throw = FMath::Clamp<float>(Throw, -1, 0);
 	//UE_LOG(LogTemp, Warning, TEXT("Intend cclock: %f"), Throw);
 
