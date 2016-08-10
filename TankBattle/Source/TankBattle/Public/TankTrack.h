@@ -14,15 +14,28 @@ class TANKBATTLE_API UTankTrack : public UStaticMeshComponent
 	GENERATED_BODY()
 	
 public:
-	UTankTrack();
-
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-		FActorComponentTickFunction * TickThisFunction) override;
-
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
-	
+
+	void DriveTrack();
+
 	UPROPERTY(EditDefaultsOnly)
 		float TrackMaxDrivingForce = 40000000;
 	
+private:
+	UTankTrack();
+
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
+		FActorComponentTickFunction * TickThisFunction) override;
+
+	void ApplySidewaysForce();
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent, FVector NormalImpulse,
+			const FHitResult& Hit);
+
+	float CurrentThrottle = 0;
+
 };
