@@ -42,13 +42,9 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	if (FMath::Abs<float>(DeltaRotator.Yaw) > 0.05f || 
 		FMath::Abs<float>(DeltaRotator.Pitch) > 0.05f)
 	{
-		if (bIsReloaded)
+		if (bIsReloaded && Ammo)
 		{
 			TankFiringStatus = EFiringStatus::Aiming;
-		}
-		else
-		{
-			TankFiringStatus = EFiringStatus::Reloading;
 		}
 		if (DeltaRotator.Yaw >= 180 ||
 			(DeltaRotator.Yaw < 0 && DeltaRotator.Yaw >= -180))
@@ -64,13 +60,17 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	}
 	else
 	{
-		if (bIsReloaded)
+		if (bIsReloaded && Ammo)
 		{
 			TankFiringStatus = EFiringStatus::Locked;
 		}
-		else
+		else if(Ammo)
 		{
 			TankFiringStatus = EFiringStatus::Reloading;
+		}
+		else
+		{
+			TankFiringStatus = EFiringStatus::OutOfAmmo;
 		}
 	}
 }
@@ -78,7 +78,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 void UTankAimingComponent::FireProjectile()
 {
 	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
-	if (bIsReloaded)
+	if (bIsReloaded && Ammo)
 	{
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>
 			(
@@ -88,10 +88,16 @@ void UTankAimingComponent::FireProjectile()
 				);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		Ammo = Ammo - 1;
 	}
 }
 
 EFiringStatus UTankAimingComponent::GetFiringStatus() const
 {
 	return TankFiringStatus;
+}
+
+int UTankAimingComponent::GetAmmo() const
+{
+	return Ammo;
 }
