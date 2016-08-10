@@ -77,7 +77,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::FireProjectile()
 {
-	if (!ensure(Barrel)) { return; }
+	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
 	if (bIsReloaded)
 	{
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>

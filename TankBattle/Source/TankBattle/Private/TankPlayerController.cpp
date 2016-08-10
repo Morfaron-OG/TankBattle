@@ -13,6 +13,7 @@ void ATankPlayerController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning,
 			TEXT("Player controller can't find tank aiming component"));
+		return;
 	}
 	else
 	{
@@ -28,7 +29,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetPawn())){ return; }
+	if (!GetPawn()){ return; }
 
 	FVector HitLocation = FVector(0); //OUT parameter
 	if (GetSightRayHitLocation(HitLocation))
