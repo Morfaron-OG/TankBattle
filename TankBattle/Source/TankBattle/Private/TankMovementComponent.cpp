@@ -2,6 +2,7 @@
 
 #include "TankBattle.h"
 #include "TankTrack.h"
+#include "TankAimingComponent.h"
 #include "TankMovementComponent.h"
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackSet,
@@ -59,10 +60,14 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,
 	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 	float FwdMove = FVector::DotProduct(TankForward, AIForwardIntention);
 	float Rotate = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
-	IntendMoveForwards(FwdMove);
-	IntendMoveBackwards(FwdMove);
-	IntendRotateCClockwise(Rotate);
-	IntendRotateClockwise(Rotate);
+	if (GetOwner()->FindComponentByClass<UTankAimingComponent>()->
+		GetFiringStatus() == EFiringStatus::Aiming)
+	{
+		IntendMoveForwards(FwdMove);
+		IntendMoveBackwards(FwdMove);
+		IntendRotateCClockwise(Rotate);
+		IntendRotateClockwise(Rotate);
+	}
 	/*UE_LOG(LogTemp, Warning, TEXT("%s moving @ vel %s"), *AITankName,
 		*AIForwardIntention.ToString());*/
 
