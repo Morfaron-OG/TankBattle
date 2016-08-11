@@ -18,6 +18,9 @@ void ATankAIController::Tick(float DeltaTime)
 	if (!ControlledTank) { return; }
 	if (PlayerControlledTank)
 	{
+		//Move towards player
+		MoveToActor(PlayerControlledTank, AcceptanceRadius);
+
 		// Aim at player
 		ControlledTank->FindComponentByClass<UTankAimingComponent>()->
 			AimAt(PlayerControlledTank->GetActorLocation() + 
@@ -28,11 +31,6 @@ void ATankAIController::Tick(float DeltaTime)
 		{
 			ControlledTank->FindComponentByClass<UTankAimingComponent>()->
 				FireProjectile();
-		}
-		else
-		{
-			//Move towards player if you cant lock onto them
-			MoveToActor(PlayerControlledTank, AcceptanceRadius);
 		}
 	}	
 }

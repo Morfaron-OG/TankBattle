@@ -61,7 +61,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity,
 	float FwdMove = FVector::DotProduct(TankForward, AIForwardIntention);
 	float Rotate = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 	if (GetOwner()->FindComponentByClass<UTankAimingComponent>()->
-		GetFiringStatus() == EFiringStatus::Aiming)
+		GetFiringStatus() != EFiringStatus::Locked)
 	{
 		IntendMoveForwards(FwdMove);
 		IntendMoveBackwards(FwdMove);

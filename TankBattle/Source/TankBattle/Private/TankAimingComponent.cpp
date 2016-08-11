@@ -46,14 +46,13 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 		{
 			TankFiringStatus = EFiringStatus::Aiming;
 		}
-		if (DeltaRotator.Yaw >= 180 ||
-			(DeltaRotator.Yaw < 0 && DeltaRotator.Yaw >= -180))
+		if (FMath::Abs<float>(DeltaRotator.Yaw) < 180)
 		{
-			TurretRelSpeed = -FMath::Abs<float>(DeltaRotator.Yaw);
+			TurretRelSpeed = DeltaRotator.Yaw;
 		}
 		else
 		{
-			TurretRelSpeed = FMath::Abs<float>(DeltaRotator.Yaw);
+			TurretRelSpeed = -DeltaRotator.Yaw;
 		}
 		Turret->TurretRotate(TurretRelSpeed);
 		Barrel->Elevate(DeltaRotator.Pitch);
@@ -88,7 +87,7 @@ void UTankAimingComponent::FireProjectile()
 				);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
-		Ammo = Ammo - 1;
+		Ammo--;
 	}
 }
 
