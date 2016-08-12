@@ -96,7 +96,7 @@ EFiringStatus UTankAimingComponent::GetFiringStatus() const
 	return TankFiringStatus;
 }
 
-int32 UTankAimingComponent::GetAmmo() const
+int UTankAimingComponent::GetAmmo() const
 {
 	return Ammo;
 }
