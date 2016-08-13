@@ -5,6 +5,9 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDeathDelegate);
+
+
 UCLASS()
 class TANKBATTLE_API ATank : public APawn
 {
@@ -14,6 +17,12 @@ public:
 	virtual float TakeDamage(float DamageAmount,
 		struct FDamageEvent const& DamageEvent,
 		class AController* EventInstigator, AActor* DamageCauser) override;
+
+	UFUNCTION(BlueprintPure, Category = "Health")
+	 float GetHealthPercent() const;
+
+	FDeathDelegate OnDeath;
+
 protected:
 private:
 	// Called to bind functionality to input
@@ -25,5 +34,4 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 		int32 CurrentHealth = StartingHealth;
-
 };

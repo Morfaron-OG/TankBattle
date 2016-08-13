@@ -22,6 +22,8 @@ protected:
 private:
 	void BeginPlay() override;
 	void Tick(float DeltaSeconds) override;
+
+	virtual void SetPawn(APawn* InPawn) override;
 	
 	void AimTowardsCrosshair(); //Move tank barrel so shot intersects crosshair
 
@@ -41,4 +43,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000;
+
+	UFUNCTION()
+		void OnTankDeath();
 };
