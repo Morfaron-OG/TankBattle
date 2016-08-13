@@ -56,7 +56,6 @@ void AProjectile::Tick( float DeltaTime )
 
 void AProjectile::LaunchProjectile(float Speed)
 {
-	SetLifeSpan(5);
 	//UE_LOG(LogTemp, Warning, TEXT("Firing @ %f cm/s"), Speed);
 	ProjectileMovement->
 		SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
@@ -67,7 +66,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, FVector NormalImpulse,
 	const FHitResult& Hit)
 {
-	LaunchBlast->Deactivate();
-	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
+	ImpactBlast->Activate();
+	LaunchBlast->Deactivate();
+	SetLifeSpan(LifeSpanAfterCollision);
 }

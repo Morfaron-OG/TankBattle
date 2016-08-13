@@ -23,7 +23,7 @@ public:
 	void LaunchProjectile(float Speed);
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UProjectileMovementComponent* ProjectileMovement = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -43,4 +43,7 @@ private:
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 			UPrimitiveComponent* OtherComponent, FVector NormalImpulse,
 			const FHitResult& Hit);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Collision")
+		float LifeSpanAfterCollision = 1;
 };
