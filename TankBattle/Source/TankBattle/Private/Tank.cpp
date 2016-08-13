@@ -3,6 +3,13 @@
 #include "TankBattle.h"
 #include "Tank.h"
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+}
+
+
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
@@ -18,6 +25,7 @@ float ATank::TakeDamage(float DamageAmount,
 	CurrentHealth -= DamageToApply;
 	if (CurrentHealth <= 0)
 	{
+
 		OnDeath.Broadcast();
 	}
 	return DamageToApply;

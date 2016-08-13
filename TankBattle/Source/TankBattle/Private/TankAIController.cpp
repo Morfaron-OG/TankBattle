@@ -5,11 +5,6 @@
 #include "Tank.h"
 #include "TankAIController.h"
 
-void ATankAIController::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
 void ATankAIController::SetPawn(APawn* InPawn)
 {
 	Super::SetPawn(InPawn);
@@ -22,6 +17,18 @@ void ATankAIController::SetPawn(APawn* InPawn)
 		PossessedTank->OnDeath.AddUniqueDynamic(this,
 			&ATankAIController::OnTankDeath);
 	}
+}
+
+void ATankAIController::OnTankDeath()
+{
+	if (!GetPawn()) { return; }
+	UE_LOG(LogTemp, Warning, TEXT("DEAD"));
+	GetPawn()->DetachFromControllerPendingDestroy();
+}
+
+void ATankAIController::BeginPlay()
+{
+	Super::BeginPlay();
 }
 
 void ATankAIController::Tick(float DeltaTime)
@@ -50,7 +57,3 @@ void ATankAIController::Tick(float DeltaTime)
 	}	
 }
 
-void ATankAIController::OnTankDeath()
-{
-	UE_LOG(LogTemp, Warning, TEXT("DEAD"))
-}

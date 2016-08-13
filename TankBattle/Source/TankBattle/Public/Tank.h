@@ -25,6 +25,8 @@ public:
 
 protected:
 private:
+	virtual void BeginPlay() override;
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(
 		class UInputComponent* InputComponent) override;
@@ -33,5 +35,5 @@ private:
 		int32 StartingHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-		int32 CurrentHealth = StartingHealth;
+		int32 CurrentHealth;
 };
