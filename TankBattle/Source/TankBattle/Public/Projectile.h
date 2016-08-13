@@ -46,4 +46,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Collision")
 		float LifeSpanAfterCollision = 1;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Collision")
+		float DamageAmount = 20.f;
 };

@@ -67,7 +67,13 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 	const FHitResult& Hit)
 {
 	ExplosionForce->FireImpulse();
+
+	UGameplayStatics::ApplyRadialDamage(this, DamageAmount, GetActorLocation(),
+		ExplosionForce->Radius, UDamageType::StaticClass(),TArray<AActor*>());
+
 	ImpactBlast->Activate();
 	LaunchBlast->Deactivate();
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
 	SetLifeSpan(LifeSpanAfterCollision);
 }
